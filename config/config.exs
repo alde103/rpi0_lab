@@ -37,9 +37,14 @@ key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
 config :nerves_network, :default,
   wlan0: [
-    ssid: System.get_env("NERVES_NETWORK_SSID"),
-    psk: System.get_env("NERVES_NETWORK_PSK"),
+    ssid: "Secret",
+    psk:  "secretxx",
     key_mgmt: String.to_atom(key_mgmt)
+   ],
+  eth0: [
+    ipv4_address_method: :static,
+    ipv4_address: "192.168.0.100", ipv4_subnet_mask: "255.255.255.0",
+    domain: "mycompany.com", nameservers: ["8.8.8.8", "8.8.4.4"]
   ],
   usb0: [
     ipv4_address_method: :linklocal
@@ -51,5 +56,38 @@ config :nerves_init_gadget,
   node_name: "nerves_iot",
   mdns_domain: System.get_env("NODE_NAME") || "nerves.local"
 
+# config :nerves_init_gadget,
+#   ifname: "wlan0",
+#   address_method: :dhcp,
+#   node_name: "nerves_iot",
+#   mdns_domain: System.get_env("NODE_NAME") || "nerves.local"
+
+config :nerves_neopixel,
+  canvas: {10, 2},
+  channels: [:channel1, :channel2],
+  channel1: [
+    pin: 18, #LIGHTPIPE
+    type: :grbw,
+    arrangement: [
+      %{
+        type: :strip,
+        origin: {0, 0},
+        count: 10,
+        direction: :right
+      }
+    ]
+  ],
+  channel2: [
+    pin: 13,
+    type: :grbw,
+    arrangement: [
+      %{
+        type: :strip,
+        origin: {0, 1},
+        count: 10,
+        direction: :right
+      }
+    ]
+  ]
 
 # import_config "#{Mix.Project.config[:target]}.exs"

@@ -40,18 +40,29 @@ defmodule Rpi0Lab.MixProject do
     [
       {:nerves, "~> 1.3", runtime: false},
       {:shoehorn, "~> 0.4"},
-      {:nerves_init_gadget, "~> 0.3"},
-      {:nerves_network, "~> 0.3"},
       {:ring_logger, "~> 0.4"}
     ] ++ deps(@target)
   end
 
   # Specify target specific dependencies
-  defp deps("host"), do: []
+  defp deps("host") do
+    [
+      {:httpoison, "~> 1.0"},
+      {:jason, "~> 1.0"},
+    ]
+  end
 
   defp deps(target) do
     [
-      {:nerves_runtime, "~> 0.6"}
+      {:nerves_init_gadget, "~> 0.5.0"},
+      {:nerves_network, "~> 0.5.0"},
+      {:nerves_neopixel, github: "valiot/nerves_neopixel", branch: "100-dev", submodules: true},
+      {:nerves_runtime, "~> 0.6"},
+      {:snapex7, "~> 0.1.0"},
+      {:toolshed, "~> 0.2.0"}
+      #{:snapex7, github: "valiot/snapex7", branch: "makefile_test", submodules: true}
+      #{:snapex7, github: "valiot/snapex7", branch: "Nerves", submodules: true}
+      #{:snapex7, path: "/home/alde/Documents/Elixir/repos/snapex7"}
     ] ++ system(target)
   end
 
