@@ -15,6 +15,7 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 # involved with firmware updates.
 
 config :shoehorn,
+  #init: [:nerves_runtime, :nerves_init_gadget],
   init: [:nerves_runtime, :nerves_init_gadget],
   app: Mix.Project.config()[:app]
 
@@ -22,7 +23,14 @@ config :shoehorn,
 # See https://hexdocs.pm/ring_logger/readme.html for more information on
 # configuring ring_logger.
 
-config :logger, backends: [RingLogger]
+config :logger,
+  utc_log: true,
+  handle_otp_reports: true,
+  handle_sasl_reports: true,
+  level: :debug,
+  backends: [:console, RingLogger]
+
+  config :logger, RingLogger, max_size: 1024
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
@@ -33,14 +41,20 @@ config :nerves_firmware_ssh,
     File.read!(Path.join(System.user_home!, ".ssh/id_rsa.pub"))
   ]
 
+config :nerves_init_gadget,
+  ifname: "usb0",
+  address_method: :linklocal,
+  node_name: "nerves_iot",
+  mdns_domain: System.get_env("NODE_NAME") || "nerves.local"
+
 key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
 config :nerves_network, :default,
   wlan0: [
-    ssid: "Secret",
-    psk:  "secretxx",
+    ssid: System.get_env("SSID") || "Secret",
+    psk:  System.get_env("SSID_PSK") || "secretxx",
     key_mgmt: String.to_atom(key_mgmt)
-   ],
+    ],
   eth0: [
     ipv4_address_method: :static,
     ipv4_address: "192.168.0.100", ipv4_subnet_mask: "255.255.255.0",
@@ -49,12 +63,6 @@ config :nerves_network, :default,
   usb0: [
     ipv4_address_method: :linklocal
   ]
-
-config :nerves_init_gadget,
-  ifname: "usb0",
-  address_method: :linklocal,
-  node_name: "nerves_iot",
-  mdns_domain: System.get_env("NODE_NAME") || "nerves.local"
 
 # config :nerves_init_gadget,
 #   ifname: "wlan0",

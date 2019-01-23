@@ -14,6 +14,7 @@ use Mix.Releases.Config,
 
 environment :dev do
   set(cookie: :"Unused with Nerves. See vm.args")
+
 end
 
 environment :prod do
@@ -27,6 +28,25 @@ end
 
 release :rpi0_lab do
   set(version: current_version(:rpi0_lab))
+
+  set(
+    config_providers: [
+      {Mix.Releases.Config.Providers.Elixir, ["${RELEASE_ROOT_DIR}/etc/config.exs"]}
+    ]
+  )
+
+  set(
+    overlays: [
+      {:copy, "rel/config/config.exs", "etc/config.exs"}
+    ]
+  )
+
+  set(
+    applications: [
+      :runtime_tools
+    ]
+  )
+
   plugin(Nerves)
   plugin(Shoehorn)
 end

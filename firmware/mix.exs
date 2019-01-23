@@ -40,7 +40,7 @@ defmodule Rpi0Lab.MixProject do
     [
       {:nerves, "~> 1.3", runtime: false},
       {:shoehorn, "~> 0.4"},
-      {:ring_logger, "~> 0.4"}
+      {:ring_logger, "0.5.0"}
     ] ++ deps(@target)
   end
 
@@ -54,7 +54,7 @@ defmodule Rpi0Lab.MixProject do
 
   defp deps(target) do
     [
-      {:nerves_init_gadget, "~> 0.5.0"},
+      {:nerves_init_gadget, "~> 0.5.2"},
       {:nerves_network, "~> 0.5.0"},
       {:nerves_neopixel, github: "valiot/nerves_neopixel", branch: "100-dev", submodules: true},
       {:nerves_runtime, "~> 0.6"},
@@ -73,5 +73,6 @@ defmodule Rpi0Lab.MixProject do
   defp system("bbb"), do: [{:nerves_system_bbb, "~> 1.0", runtime: false}]
   defp system("ev3"), do: [{:nerves_system_ev3, "~> 1.0", runtime: false}]
   defp system("x86_64"), do: [{:nerves_system_x86_64, "~> 1.0", runtime: false}]
+  defp system("rpi0_can"), do: [{:rpi0_can, path: "../rpi0_can", runtime: false}]
   defp system(target), do: Mix.raise("Unknown MIX_TARGET: #{target}")
 end

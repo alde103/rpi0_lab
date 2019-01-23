@@ -11,18 +11,18 @@ defmodule Rpi0Lab.Animate do
   @neopixel_config Application.get_env(:nerves_neopixel, :config)
   def color(:status, opts) do
     {r, g, b, w} = opts[:color] || {255, 255, 255, 255}
-    Neopixel.fill(%Point{x: 0, y: 0}, 7, 1,%Color{r: r, g: g, b: b, w: w})
-    Neopixel.render()
+    #Neopixel.fill(%Point{x: 0, y: 0}, 7, 1,%Color{r: r, g: g, b: b, w: w})
+    #Neopixel.render()
   end
 
   def color(:valiot, opts) do
     {r, g, b, w} = opts[:color] || {255, 255, 255, 255}
-    Neopixel.set_pixel(%Point{x: 0, y: 1}, %Color{r: r, g: g, b: b, w: w})
-    Neopixel.set_pixel(%Point{x: 1, y: 1}, %Color{r: r, g: g, b: b, w: w})
-    Neopixel.set_pixel(%Point{x: 2, y: 1}, %Color{r: r, g: g, b: b, w: w})
-    Neopixel.set_pixel(%Point{x: 3, y: 1}, %Color{r: r, g: g, b: b, w: w})
-    Neopixel.set_pixel(%Point{x: 4, y: 1}, %Color{r: r, g: g, b: b, w: w})
-    Neopixel.render()
+    #Neopixel.set_pixel(%Point{x: 0, y: 1}, %Color{r: r, g: g, b: b, w: w})
+    #Neopixel.set_pixel(%Point{x: 1, y: 1}, %Color{r: r, g: g, b: b, w: w})
+    #Neopixel.set_pixel(%Point{x: 2, y: 1}, %Color{r: r, g: g, b: b, w: w})
+    #Neopixel.set_pixel(%Point{x: 3, y: 1}, %Color{r: r, g: g, b: b, w: w})
+    #Neopixel.set_pixel(%Point{x: 4, y: 1}, %Color{r: r, g: g, b: b, w: w})
+    #Neopixel.render()
   end
 
   def color(atom, _opts) do
