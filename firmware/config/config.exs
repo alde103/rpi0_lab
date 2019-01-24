@@ -9,6 +9,7 @@ use Mix.Config
 # https://hexdocs.pm/nerves/advanced-configuration.html for details.
 
 config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
+config :nerves, :firmware, fwup_conf: "config/rpi0_can/fwup.conf"
 
 # Use shoehorn to start the main application. See the shoehorn
 # docs for separating out critical OTP applications such as those
@@ -51,10 +52,14 @@ key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
 config :nerves_network, :default,
   wlan0: [
-    ssid: System.get_env("SSID") || "Secret",
-    psk:  System.get_env("SSID_PSK") || "secretxx",
-    key_mgmt: String.to_atom(key_mgmt)
-    ],
+    networks: [
+      [
+        ssid: System.get_env("SSID") || "Secret",
+        psk: System.get_env("SSID_PSK") || "secretxx",
+        key_mgmt: String.to_atom(key_mgmt)
+      ]
+    ]
+  ],
   eth0: [
     ipv4_address_method: :static,
     ipv4_address: "192.168.0.100", ipv4_subnet_mask: "255.255.255.0",

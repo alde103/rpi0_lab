@@ -59,7 +59,8 @@ defmodule Rpi0Lab.MixProject do
       {:nerves_neopixel, github: "valiot/nerves_neopixel", branch: "100-dev", submodules: true},
       {:nerves_runtime, "~> 0.6"},
       {:snapex7, "~> 0.1.0"},
-      {:toolshed, "~> 0.2.0"}
+      {:toolshed, "~> 0.2.0"},
+      {:ng_can, github: "johnnyhh/ng_can", branch: "master"},
       #{:snapex7, github: "valiot/snapex7", branch: "makefile_test", submodules: true}
       #{:snapex7, github: "valiot/snapex7", branch: "Nerves", submodules: true}
       #{:snapex7, path: "/home/alde/Documents/Elixir/repos/snapex7"}
